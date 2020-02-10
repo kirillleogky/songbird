@@ -1,0 +1,12 @@
+@import './components/header/header';
+@import './components/main/main';
+
+body {
+    background-color: rgb(34, 34, 34);
+}
+
+#wrapper {
+    width: 90%;
+    margin: 0 auto;
+    color: rgb(255, 255, 255);
+}
