@@ -1,5 +1,6 @@
 import React from 'react'
 import GameOver from './gameOver/gameOver'
+import Player from './audioPlayer/audioPlayer'
 
 class Main extends React.Component {
   renderAnswer = answer => {
@@ -25,7 +26,9 @@ class Main extends React.Component {
             <div className="info_block-title">
               <h3 id="bird_name">******</h3>
             </div>
-            <div className="info_block-player" />
+            <div className="info_block-player">
+              <Player />
+            </div>
           </div>
         </div>
         <div className="answers_block">
@@ -51,7 +54,9 @@ class Main extends React.Component {
               <div className="bird_data-name_voice">
                 <h2 className="bird_data-name">Имя птички</h2>
                 <h3 className="bird_data-latin_name">Имя птички (латиница)</h3>
-                <div className="bird_data-player">ПЛЕЕР</div>
+                <div className="bird_data-player">
+                  <Player />
+                </div>
               </div>
             </div>
             <span className="bird_data-description">
