@@ -1,18 +1,31 @@
 import React from 'react'
 import GameOver from './gameOver/gameOver'
 import Player from './audioPlayer/audioPlayer'
+import birdsData from '../birdsData'
 
 class Main extends React.Component {
   renderAnswer = answer => {
     return (
-      <li className="answers_block-answer answer">
+      <li className="answers_block-answer answer" key={answer}>
         <span className="answer_point" />
         {answer}
       </li>
     )
   }
 
+  shuffle = currArray => currArray.sort(() => 0.5 - Math.random())
+
+  generateBird = data => {
+    const randomNumb = Math.floor(0 + Math.random() * (5 + 1 - 0))
+    const currBird = data[0][randomNumb]
+    return currBird
+  }
+
   render() {
+    const currBird = this.generateBird(birdsData)
+    const shuffleBirds = this.shuffle(birdsData[0])
+    const birdsList = shuffleBirds.map(bird => this.renderAnswer(bird.name))
+
     return (
       <main className="main_block">
         <GameOver />
@@ -27,19 +40,12 @@ class Main extends React.Component {
               <h3 id="bird_name">******</h3>
             </div>
             <div className="info_block-player">
-              <Player />
+              <Player audio={currBird.audio} />
             </div>
           </div>
         </div>
         <div className="answers_block">
-          <ul className="answers_block-options">
-            {this.renderAnswer('птичка')}
-            {this.renderAnswer('птичка')}
-            {this.renderAnswer('птичка')}
-            {this.renderAnswer('птичка')}
-            {this.renderAnswer('птичка')}
-            {this.renderAnswer('птичка')}
-          </ul>
+          <ul className="answers_block-options">{birdsList}</ul>
           <div className="answers_block-bird_data bird_data">
             <div className="bird_data-instruction hide">
               <p>Послушайте плеер.</p>
