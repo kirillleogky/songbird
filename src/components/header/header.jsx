@@ -3,8 +3,8 @@ import React from 'react'
 class Header extends React.Component {
   renderQuestionTheme = (questionName, isActive) => {
     return (
-      <li className="header_block-question">
-        <a href="/#" className={`question_link ${isActive ? 'active' : ''}`}>
+      <li className={`header_block-question ${isActive ? 'active' : ''}`}>
+        <a href="/#" className="question_link">
           {questionName}
         </a>
       </li>

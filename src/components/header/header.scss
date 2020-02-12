@@ -37,6 +37,10 @@
 
 .question_link {
     width: 100%;
-    color: rgb(255, 255, 255);
+    color: rgb(48, 48, 48);
     text-decoration: none;
+}
+
+.active>.question_link {
+    color: rgb(144, 255, 227);
 }
