@@ -1,14 +1,6 @@
 @import './gameOver/gameOver';
 @import './audioPlayer/audioPlayer';
 
-.show {
-    display: block;
-}
-
-.hide {
-    display: none;
-}
-
 .image {
     border-radius: 5px;
 }
@@ -58,7 +50,7 @@
     &-answer {
         cursor: pointer;
         border-bottom: 1px solid rgb(68, 68, 68);
-        padding: 3%;
+        padding: 2%;
 
         &:last-child {
             border-bottom: 0;
@@ -67,6 +59,20 @@
         &:hover {
             background-color: rgb(68, 68, 68);
         }
+
+        &:hover .answers_block-btn {
+            background-color: rgb(68, 68, 68);
+        }
+
+    }
+
+    &-btn {
+        width: 100%;
+        padding: 3%;
+        background-color: rgb(48, 48, 48);
+        border: none;
+        color: rgb(255, 255, 255);
+        text-align: left;
     }
 
     &-bird_data {
@@ -132,6 +138,21 @@
     background-color: rgb(0, 188, 140);
 }
 
+.right {
+    background-color: rgb(40, 168, 136);
+}
+
+.wrong {
+    background-color: rgb(168, 40, 40);
+}
+
+.show {
+    display: flex;
+}
+
+.hide {
+    display: none;
+}
 
 @media (max-width: 900px) {
     .bird_data-image {

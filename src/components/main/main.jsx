@@ -4,11 +4,60 @@ import Player from './audioPlayer/audioPlayer'
 import birdsData from '../birdsData'
 
 class Main extends React.Component {
-  renderAnswer = answer => {
+  constructor(props) {
+    super(props)
+    this.state = {
+      image: './static/img/unknown.jpg',
+      name: '',
+      latinName: '',
+      audio: '',
+      description: '',
+    }
+    this.currBird = this.generateBird(birdsData)
+    this.shuffleBirds = this.shuffle(birdsData[0])
+    this.birdsList = this.shuffleBirds.map(bird =>
+      this.renderAnswer(bird.name, this.currBird.name)
+    )
+  }
+
+  handleClick = (event, answer, birdName) => {
+    const birds = birdsData[0]
+    let i = 0
+    while (birds[i].name !== answer) {
+      i += 1
+    }
+    const currBird = birds[i]
+    const birdImage = currBird.image
+    const birdNaming = currBird.name
+    const birdLatinName = currBird.species
+    const birdAudio = currBird.audio
+    const birdDesc = currBird.description
+
+    this.setState({
+      image: `${birdImage}`,
+      name: `${birdNaming}`,
+      latinName: `${birdLatinName}`,
+      audio: `${birdAudio}`,
+      description: `${birdDesc}`,
+    })
+    if (answer === birdName) {
+      event.target.firstElementChild.classList.add('right')
+    } else {
+      event.target.firstElementChild.classList.add('wrong')
+    }
+  }
+
+  renderAnswer = (name, answer) => {
     return (
-      <li className="answers_block-answer answer" key={answer}>
-        <span className="answer_point" />
-        {answer}
+      <li className="answers_block-answer answer" id={name} key={name}>
+        <button
+          className="answers_block-btn"
+          type="button"
+          onClick={event => this.handleClick(event, name, answer)}
+        >
+          <span className="answer_point" />
+          {name}
+        </button>
       </li>
     )
   }
@@ -22,10 +71,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const currBird = this.generateBird(birdsData)
-    const shuffleBirds = this.shuffle(birdsData[0])
-    const birdsList = shuffleBirds.map(bird => this.renderAnswer(bird.name))
-
+    const currState = this.state
     return (
       <main className="main_block">
         <GameOver />
@@ -40,37 +86,43 @@ class Main extends React.Component {
               <h3 id="bird_name">******</h3>
             </div>
             <div className="info_block-player">
-              <Player audio={currBird.audio} />
+              <Player audio={this.currBird.audio} />
             </div>
           </div>
         </div>
         <div className="answers_block">
-          <ul className="answers_block-options">{birdsList}</ul>
+          <ul className="answers_block-options">{this.birdsList}</ul>
           <div className="answers_block-bird_data bird_data">
-            <div className="bird_data-instruction hide">
+            <div
+              className={`bird_data-instruction ${
+                currState.name ? 'hide' : 'show'
+              }`}
+            >
               <p>Послушайте плеер.</p>
               <p>Выберите птицу из списка</p>
             </div>
-            <div className="bird_data-info">
+            <div
+              className={`bird_data-info ${currState.name ? 'show' : 'hide'}`}
+            >
               <img
                 className="bird_data-image image"
-                src="./static/img/unknown.jpg"
+                src={currState.image}
                 alt="Птичка"
               />
               <div className="bird_data-name_voice">
-                <h2 className="bird_data-name">Имя птички</h2>
-                <h3 className="bird_data-latin_name">Имя птички (латиница)</h3>
+                <h2 className="bird_data-name">{currState.name}</h2>
+                <h3 className="bird_data-latin_name">{currState.latinName}</h3>
                 <div className="bird_data-player">
-                  <Player />
+                  <Player audio={currState.audio} />
                 </div>
               </div>
             </div>
-            <span className="bird_data-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              augue leo, vestibulum at urna vehicula, finibus venenatis ligula.
-              Phasellus ut risus aliquam, cursus ligula eget, tincidunt magna.
-              Mauris porta pretium augue vitae tempor. Integer nunc ipsum,
-              egestas vitae convallis quis, laoreet vel tellus.
+            <span
+              className={`bird_data-description ${
+                currState.name ? 'show' : 'hide'
+              }`}
+            >
+              {currState.description}
             </span>
           </div>
         </div>
