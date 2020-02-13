@@ -13,6 +13,8 @@ class Main extends React.Component {
       audio: '',
       description: '',
     }
+    this.currBirdName = '******'
+    this.currBirdImage = './static/img/unknown.jpg'
     this.currBird = this.generateBird(birdsData)
     this.shuffleBirds = this.shuffle(birdsData[0])
     this.birdsList = this.shuffleBirds.map(bird =>
@@ -42,6 +44,8 @@ class Main extends React.Component {
     })
     if (answer === birdName) {
       event.target.firstElementChild.classList.add('right')
+      this.currBirdName = `${birdNaming}`
+      this.currBirdImage = `${birdImage}`
     } else {
       event.target.firstElementChild.classList.add('wrong')
     }
@@ -78,12 +82,12 @@ class Main extends React.Component {
         <div className="info_block">
           <img
             className="info_block-image image"
-            src="./static/img/unknown.jpg"
+            src={this.currBirdImage}
             alt="bird"
           />
           <div className="info_block-title_player">
             <div className="info_block-title">
-              <h3 id="bird_name">******</h3>
+              <h3 id="bird_name">{this.currBirdName}</h3>
             </div>
             <div className="info_block-player">
               <Player audio={this.currBird.audio} />
@@ -126,7 +130,12 @@ class Main extends React.Component {
             </span>
           </div>
         </div>
-        <button type="button" className="next_level_btn btn">
+        <button
+          type="button"
+          className={`next_level_btn btn ${
+            this.currBirdName !== '******' ? 'next_level_btn_active' : 'hide'
+          }`}
+        >
           Next Level
         </button>
       </main>
