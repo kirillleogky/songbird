@@ -15,6 +15,7 @@ class Main extends React.Component {
     }
     this.currBirdName = '******'
     this.currBirdImage = './static/img/unknown.jpg'
+    this.score = 5
     this.currBird = this.generateBird(birdsData)
     this.shuffleBirds = this.shuffle(birdsData[0])
     this.birdsList = this.shuffleBirds.map(bird =>
@@ -46,8 +47,10 @@ class Main extends React.Component {
       event.target.firstElementChild.classList.add('right')
       this.currBirdName = `${birdNaming}`
       this.currBirdImage = `${birdImage}`
+      document.getElementById('score').innerHTML = `${this.score}`
     } else {
       event.target.firstElementChild.classList.add('wrong')
+      this.score -= 1
     }
   }
 
