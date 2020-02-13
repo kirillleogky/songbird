@@ -1,0 +1,31 @@
+.rhap_time {
+  display: none;
+}
+
+.rhap_additional-controls,
+.rhap_rewind-button,
+.rhap_forward-button,
+.rhap_volume-bar-area {
+  display: none;
+}
+
+.rhap_container  {
+  flex-direction: row-reverse !important;
+  background-color: rgb(48, 48, 48);
+  box-shadow: none;
+  padding: 0;
+  min-width: 0;
+}
+
+.rhap_volume-controls {
+  justify-content: end !important;
+}
+
+.rhap_controls-section {
+  margin: 0 !important;
+}
+
+.rhap_progress-section {
+  width: 90% !important;
+  flex: auto;
+}
